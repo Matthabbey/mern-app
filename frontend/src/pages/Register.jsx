@@ -2,7 +2,7 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-import {ToastContainer} from 'react-toastify'
+import {toast, ToastContainer} from 'react-toastify'
 import { register, reset } from '../features/auth/authSlice'
 import {FaUser} from 'react-icons/fa'
 
@@ -17,10 +17,26 @@ const  Register = ()=> {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const {user, isloading, isSuccess, isError, meesage} = useSelector((state)=>state.auth)
-  
-  const onChange =  ()=>{
+  const {user, isLoading, isSuccess, isError, message} = useSelector((state)=>state.auth)
 
+  useEffect(()=>{
+
+  }, [user, isLoading, isSuccess, isError, message, navigate, dispatch, ])
+  
+  const onChange =  (e)=>{
+      setFormData((prevState)=>({
+        ...prevState,
+        [e.target.name]: e.target.value
+      }))
+  }
+  const onSubmit = (e)=>{
+    e.preventDefault()
+
+    if(password !== password){
+        toast.error('Passwords do not match')
+    }
+    const userData = {name, email, password}
+    dispatch(register(userData ))
   }
 
   return <>

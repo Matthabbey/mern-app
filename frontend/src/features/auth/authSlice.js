@@ -49,7 +49,7 @@ export const authSlice = createSlice({
             state.isSuccess = false,
             state.user = null
         ))
-        }
+    }
 })
 
 export const {reset} = authSlice.actions
